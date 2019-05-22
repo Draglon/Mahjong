@@ -1,0 +1,86 @@
+@import '../../styles/variables/_variables';
+
+.popup {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+
+  &__container {
+    background: $white;
+    border-radius: .5em;
+    overflow: hidden;
+    max-width: 80em;
+    min-width: 30em;
+    margin: 1em;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__header {
+    background: $blue;
+    padding: 1em 4em 1em 2em;
+  }
+
+  &__close {
+    color: $white_50;
+    cursor: pointer;
+    display: block;
+    font-size: $font-size15;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 1em;
+    height: 1em;
+    transition: .3s;
+    &:hover {color: $white;}
+
+    i {display: block;}
+  }
+
+  &__title {
+    color: $white;
+  }
+
+  &__content {
+    padding: 2em;
+    p {
+      text-align: center;
+    }
+  }
+
+  &__msg {
+    font-size: $font-size18;
+    margin-bottom: 1.5em;
+
+    .form {padding: 0;}
+    .form__wrapper {padding: 0;}
+    .form__title {display: none;}
+    .form__field {margin-bottom: 1.5em !important;}
+    .form__btns {display: none;}
+  }
+
+  &__btns {
+    text-align: center;
+  }
+
+  .btn-popup {
+    min-width: 7em;
+    margin: 0 .7em;
+  }
+
+  &__overlay {
+    background: $blue_10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
