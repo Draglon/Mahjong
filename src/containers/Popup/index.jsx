@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './popup.scss';
 import { POPUP_TOGGLE } from '../../store/constants/ui.constants';
 
 class Popup extends Component {
