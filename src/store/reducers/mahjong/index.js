@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import {
   AVAILABLE_CARDS,
+  COLUMNS_CARDS,
   CURRENT_AREA,
   BEST_RESULTS,
   NEW_GAME,
@@ -9,6 +10,7 @@ import {
 // Mahjong - InitState
 export const mahjongInitState = {
   availableCards: 0,
+  columnsCards: 0,
   currentArea: [],
   bestResult: 0,
 };
@@ -25,6 +27,11 @@ export const mahjongReducer = (state = mahjongInitState, action) => {
       return {
         ...state,
         availableCards: action.payload,
+      };
+    case COLUMNS_CARDS:
+      return {
+        ...state,
+        columnsCards: action.payload,
       };
     case BEST_RESULTS:
       return {

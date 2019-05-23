@@ -7,24 +7,53 @@ import { AVAILABLE_CARDS, CURRENT_AREA } from '../../../store/constants/mahjong.
 class Area extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      cards: 64,
+      firstCard: null,
+      secondCard: null,
     };
   }
 
-  componentDidMount() {
-    const { setMahjong } = this.props;
-    // setMahjong(AVAILABLE_CARDS, 64);
-    // setMahjong(CURRENT_AREA, [...Array(32).keys()].map(index => index + 1));
+  findPair(value, index) {
+    const { firstCard, secondCard } = this.state;
+
+    if (!firstCard) {
+      this.setState({
+        firstCard: {
+          value,
+          index,
+        },
+      });
+    } else {
+      this.setState({
+        secondCard: {
+          value,
+          index,
+        },
+      });
+    }
+
+    if (firstCard && secondCard) {
+      
+    }
   }
 
   render() {
-    const { mahjong } = this.props;
-    // const {area} = this.state;
+    const { currentArea, columnsCards } = this.props.mahjong;
+    const { firstCard, secondCard } = this.state;
     return (
       <div className="mahjong__area">
-          {/* {map.area} */}
+          {currentArea.map((item, index) => (
+            <button
+              key={index}
+              type="button"
+              className="mahjong__area-btn"
+              style={{ width: `${100 / columnsCards}%` }}
+              onClick={() => this.findPair(item, index)}
+              disabled={(firstCard !== null && firstCard.index === index) || (secondCard !== null && secondCard.index === index)}
+            >
+              {item}
+            </button>
+          ))}
       </div>
     );
   }

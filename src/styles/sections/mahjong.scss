@@ -1,0 +1,13 @@
+.mahjong {
+
+  &__area {
+    border: 1px solid $gray;
+  }
+
+  &__area-btn {
+    background: none;
+    box-shadow: none;
+    border: 1px solid $gray;
+    border-radius: 0;
+  }
+}

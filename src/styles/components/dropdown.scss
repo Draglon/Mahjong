@@ -1,6 +1,15 @@
 .dropdown {
   position: relative;
 
+  &.active {
+    .dropdown__value {
+      border-radius: 4px 4px 0 0;
+    }
+    .dropdown__list {
+      display: block;
+    }
+  }
+
   &__value {
     background-color: $white;
     border-radius: 4px;
@@ -10,27 +19,22 @@
     width: 100%;
     height: 30px;
     line-height: 30px;
-
-    &.active {
-      border-radius: 4px 4px 0 0;
-      .dropdown__list {
-        display: block;
-      }
-    }
   }
 
   &__list {
+    background-color: $white;
     border: 1px solid $gray-light;
     border-radius: 0 0 4px 4px;
     display: none;
     position: absolute;
     top: 100%;
-    left: -1px;
-    right: -1px;
+    left: 0;
+    right: 0;
   }
 
   &__item {
     cursor: pointer;
+    font-size: $font-size14;
     line-height: 30px;
     padding: 0 1.5em;
 

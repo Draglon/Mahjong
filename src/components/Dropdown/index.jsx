@@ -7,9 +7,9 @@ const DropdownBtn = ({
   onToggle,
   toggle,
 }) => (
-  <div className="dropdown">
+  <div className={`dropdown${toggle ? ' active' : ''}`}>
     <div className="dropdown__value" onClick={() => onToggle(toggle)}>{value}</div>
-    <ul className={`dropdown__list${toggle && ' active'}`}>
+    <ul className="dropdown__list">
       {list.map(
         (item, index) => (
           <li key={index} className="dropdown__item" onClick={() => onclick(item, index)}>

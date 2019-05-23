@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { AVAILABLE_CARDS, CURRENT_AREA } from '../../../store/constants/mahjong.constants';
+import { AVAILABLE_CARDS, COLUMNS_CARDS, CURRENT_AREA } from '../../../store/constants/mahjong.constants';
 
 import Dropdown from '../../../components/Dropdown';
 
@@ -10,27 +10,30 @@ class Nav extends Component {
     super(props);
 
     this.state = {
-      sizes: ['2x2', '4x4', '6x6', '8x8'],
+      sizes: ['2x2', '4x4', '6x6', '8x8', '10x10', '12x12'],
       activeArea: '8x8',
       cards: 64,
+      columns: 8,
       dropdownToggle: false,
     };
   }
 
   componentDidMount() {
     const { setMahjong } = this.props;
-    const { cards } = this.state;
+    const { cards, columns } = this.state;
 
     setMahjong(AVAILABLE_CARDS, cards);
+    setMahjong(COLUMNS_CARDS, columns);
     setMahjong(CURRENT_AREA, this.sortArray(this.createArray(cards)));
   }
 
   componentDidUpdate(prevState) {
     const { setMahjong } = this.props;
-    const { cards } = this.state;
+    const { cards, columns } = this.state;
 
     if (cards !== prevState.cards) {
       setMahjong(AVAILABLE_CARDS, cards);
+      setMahjong(COLUMNS_CARDS, columns);
       setMahjong(CURRENT_AREA, this.sortArray(this.createArray(cards)));
     }
   }
@@ -42,10 +45,12 @@ class Nav extends Component {
   compareRandom = () => Math.random() - 0.5;
 
   getActiveArea = (selected, index, toggle) => {
-    const cards = Math.pow((index + 1) * 2, 2);
+    const columns = (index + 1) * 2;
+    const cards = Math.pow(columns, 2);
     this.setState({
       activeArea: selected,
       cards,
+      columns,
       dropdownToggle: !toggle,
     });
   }
