@@ -3,6 +3,7 @@ import {
   AVAILABLE_CARDS,
   COLUMNS_CARDS,
   CURRENT_AREA,
+  SET_FIRST_CARD,
   BEST_RESULTS,
   NEW_GAME,
 } from '../../constants/mahjong.constants';
@@ -12,6 +13,10 @@ export const mahjongInitState = {
   availableCards: 0,
   columnsCards: 0,
   currentArea: [],
+  firstCard: {
+    value: null,
+    index: null,
+  },
   bestResult: 0,
 };
 
@@ -32,6 +37,11 @@ export const mahjongReducer = (state = mahjongInitState, action) => {
       return {
         ...state,
         columnsCards: action.payload,
+      };
+    case SET_FIRST_CARD:
+      return {
+        ...state,
+        firstCard: action.payload,
       };
     case BEST_RESULTS:
       return {

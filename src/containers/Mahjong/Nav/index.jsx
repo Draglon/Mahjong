@@ -38,7 +38,11 @@ class Nav extends Component {
     }
   }
 
-  createArray = cards => [...Array(cards / 2).keys()].map(index => index + 1);
+  createArray = cards => [...Array(cards / 2).keys()].map(index => ({
+    value: index + 1,
+    active: false,
+    disabled: false,
+  }));
 
   sortArray = array => [].concat(array, array).sort(this.compareRandom);
 

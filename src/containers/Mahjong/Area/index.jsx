@@ -1,57 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import {
+  // AVAILABLE_CARDS,
+  CURRENT_AREA,
+  SET_FIRST_CARD,
+} from '../../../store/constants/mahjong.constants';
 import { getMahjong } from '../../../store/selectors/mahjong';
-import { AVAILABLE_CARDS, CURRENT_AREA } from '../../../store/constants/mahjong.constants';
 
 class Area extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstCard: null,
-      secondCard: null,
-    };
-  }
-
   findPair(value, index) {
-    const { firstCard, secondCard } = this.state;
+    const { firstCard } = this.props.mahjong;
 
-    if (!firstCard) {
-      this.setState({
-        firstCard: {
-          value,
-          index,
-        },
-      });
+    if (!firstCard.value) {
+      this.setMahjongArea(index, false, true, true);
+      this.setFirstCard({ value, index });
+    } else if (firstCard.value === value) {
+      this.setMahjongArea(firstCard.index, index, false, true);
+      this.setFirstCard({ value: null, card: null });
     } else {
-      this.setState({
-        secondCard: {
-          value,
-          index,
-        },
-      });
-    }
-
-    if (firstCard && secondCard) {
-      
+      this.setMahjongArea(firstCard.index, index, true, true);
+      this.setFirstCard({ value: null, card: null });
+      setTimeout(() => {
+        this.setMahjongArea(firstCard.index, index, false, false);
+      }, 500);
     }
   }
+
+  setFirstCard = (object) => {
+    const { setMahjong } = this.props;
+    setMahjong(SET_FIRST_CARD, object);
+  }
+
+  setMahjongArea = (firstIndex, secondIndex, active, disabled) => {
+    const { setMahjong, mahjong: { currentArea } } = this.props;
+    if (firstIndex) { currentArea[firstIndex] = this.changeCurrentArea(firstIndex, active, disabled); }
+    if (secondIndex) { currentArea[secondIndex] = this.changeCurrentArea(secondIndex, active, disabled); }
+    setMahjong(CURRENT_AREA, currentArea);
+  }
+
+  changeCurrentArea = (index, active, disabled) => {
+    const { currentArea } = this.props.mahjong;
+    return { ...currentArea[index], active, disabled };
+  };
 
   render() {
     const { currentArea, columnsCards } = this.props.mahjong;
-    const { firstCard, secondCard } = this.state;
     return (
       <div className="mahjong__area">
           {currentArea.map((item, index) => (
             <button
               key={index}
               type="button"
-              className="mahjong__area-btn"
+              className={`mahjong__area-btn${item.active ? ' active' : ''}`}
               style={{ width: `${100 / columnsCards}%` }}
-              onClick={() => this.findPair(item, index)}
-              disabled={(firstCard !== null && firstCard.index === index) || (secondCard !== null && secondCard.index === index)}
+              onClick={() => this.findPair(item.value, index)}
+              disabled={item.disabled}
             >
-              {item}
+              {item.value}
             </button>
           ))}
       </div>

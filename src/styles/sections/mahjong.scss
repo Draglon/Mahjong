@@ -6,8 +6,22 @@
 
   &__area-btn {
     background: none;
-    box-shadow: none;
     border: 1px solid $gray;
     border-radius: 0;
+    box-shadow: none;
+    font-size: $font-size20;
+    height: 40px;
+
+    &.active {
+      background-color: $blue !important;
+      color: $white !important;
+    }
+
+    &[disabled] {
+      background-color: $yellow;
+      border: 1px solid $gray;
+      color: $gray;
+      cursor: default;
+    }
   }
 }
