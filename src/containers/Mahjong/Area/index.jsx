@@ -64,6 +64,7 @@ class Area extends Component {
               onClick={() => this.findPair(item.value, index)}
               disabled={item.disabled}
             >
+              <i className="icon-bug"/>
               {item.value}
             </button>
           ))}
