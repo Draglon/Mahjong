@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  // AVAILABLE_CARDS,
+  AVAILABLE_CARDS,
   CURRENT_AREA,
   SET_FIRST_CARD,
 } from '../../../store/constants/mahjong.constants';
@@ -18,6 +18,7 @@ class Area extends Component {
     } else if (firstCard.value === value) {
       this.setMahjongArea(firstCard.index, index, false, true);
       this.setFirstCard({ value: null, card: null });
+      this.setAvailableCards();
     } else {
       this.setMahjongArea(firstCard.index, index, true, true);
       this.setFirstCard({ value: null, card: null });
@@ -27,6 +28,12 @@ class Area extends Component {
     }
   }
 
+  setAvailableCards = () => {
+    const { setMahjong, mahjong: { availableCards } } = this.props;
+    if (availableCards - 2 === 0) { alert("Victory!"); }
+    setMahjong(AVAILABLE_CARDS, availableCards - 2);
+  }
+
   setFirstCard = (object) => {
     const { setMahjong } = this.props;
     setMahjong(SET_FIRST_CARD, object);
@@ -34,8 +41,8 @@ class Area extends Component {
 
   setMahjongArea = (firstIndex, secondIndex, active, disabled) => {
     const { setMahjong, mahjong: { currentArea } } = this.props;
-    if (firstIndex) { currentArea[firstIndex] = this.changeCurrentArea(firstIndex, active, disabled); }
-    if (secondIndex) { currentArea[secondIndex] = this.changeCurrentArea(secondIndex, active, disabled); }
+    if (firstIndex >= 0) { currentArea[firstIndex] = this.changeCurrentArea(firstIndex, active, disabled); }
+    if (secondIndex >= 0) { currentArea[secondIndex] = this.changeCurrentArea(secondIndex, active, disabled); }
     setMahjong(CURRENT_AREA, currentArea);
   }
 
