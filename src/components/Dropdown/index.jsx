@@ -12,7 +12,7 @@ const DropdownBtn = ({
     <ul className="dropdown__list">
       {list.map(
         (item, index) => (
-          <li key={index} className="dropdown__item" onClick={() => onclick(item, index)}>
+          <li key={index} className="dropdown__item" onClick={() => onclick(item, index, toggle)}>
             {item}
           </li>
         ),
